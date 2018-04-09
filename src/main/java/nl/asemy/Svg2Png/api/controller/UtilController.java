@@ -34,12 +34,12 @@ public class UtilController {
 	@ResponseBody
 	public ResponseEntity<Map<Resolution, String>>
 
-			convertToResolutions(@RequestPart(name = "file", required = true) @NotNull final MultipartFile mpf,
-					@RequestPart(name = "targetResolutions", required = false) Set<Resolution> targetResolutions)
+			convertToResolutions(@RequestParam(name = "file", required = true) @NotNull final MultipartFile mpf)
 					throws IOException, TranscoderException {
 
-		if (targetResolutions == null || targetResolutions.size() == 0)
-			targetResolutions = Sets.newHashSet(new Resolution(100, 100));
+		Set<Resolution> targetResolutions = Sets.newHashSet(new Resolution(96, 108), //
+				new Resolution(192, 216), //
+				new Resolution(288, 322));//
 
 		HashMap<Resolution, String> convert = converter.convert(mpf.getBytes(), targetResolutions);
 
